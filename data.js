@@ -1,4 +1,4 @@
-const STORE_KEY='rsrs-v1-1';
+const STORE_KEY='rsrs-v12';
 const uid=()=>crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random().toString(36).slice(2);
 const today=()=>new Date().toLocaleDateString('en-CA');
 const copy=x=>JSON.parse(JSON.stringify(x));
