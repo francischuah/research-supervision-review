@@ -1,0 +1,29 @@
+const STATUS={green:['Satisfactory / Retain','green'],yellow:['Needs Revision / Clarification','yellow'],red:['Major Concern / Requires Significant Revision','red'],unassessed:['Not Yet Assessed','unassessed']};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const val=s=>s?.trim()?esc(s).replace(/\n/g,'<br>'):'<span class="empty">Not provided</span>';
+const badge=s=>`<span class="badge ${STATUS[s]?.[1]||'unassessed'}"><i></i>${esc(STATUS[s]?.[0]||STATUS.unassessed[0])}</span>`;
+const field=(label,value)=>`<div class="report-field"><div class="field-label">${label}</div><div class="field-value">${val(value)}</div></div>`;
+function renderReport(r){const i=r.info;
+ const reportTitle=(i.reportTitle||'Research Review Report').trim();
+ const optional=(label,value)=>value&&String(value).trim()?`<div><small>${label}</small><span>${val(value)}</span></div>`:'';
+ const coverDetails=[
+  optional('Candidate / Student ID',i.matric),
+  optional('Reviewer',i.reviewer),
+  optional('Reviewer role',i.reviewerRole),
+  optional('Additional reviewer / co-supervisor',i.additionalReviewer),
+  optional('Review type / context',i.type),
+  optional('Review stage',i.stage),
+  optional('Review round',i.round),
+  optional('Review date',i.date),
+  optional('University / institution',i.institution),
+  optional('School / faculty',i.school)
+ ].join('');
+ return `<div class="report-paper">
+ <div class="report-topline"></div>
+ <div class="report-cover"><div class="eyebrow">POSTGRADUATE RESEARCH · ACADEMIC REVIEW</div><h1>${esc(reportTitle)}</h1><div class="cover-rule"></div><div class="cover-meta"><div><small>CANDIDATE / STUDENT</small><strong>${val(i.student)}</strong></div><div><small>PROGRAMME</small><strong>${val(i.programme)}</strong></div></div><div class="research-title"><small>RESEARCH TITLE</small><strong>${val(i.title)}</strong></div><div class="cover-grid">${coverDetails}</div></div>
+ <section class="report-section"><h2><span>A</span> Overall Assessment Summary</h2><p class="section-intro">A concise view of each criterion. Detailed comments and requested actions follow in Section D.</p><table class="summary-table"><thead><tr><th>No.</th><th>Key criterion</th><th>Status</th><th>Summary comment</th></tr></thead><tbody>${r.criteria.map((c,n)=>`<tr><td>${n+1}</td><td>${esc(c.title)}</td><td>${badge(c.status)}</td><td>${val(c.summary)}</td></tr>`).join('')}</tbody></table></section>
+ <section class="report-section"><h2><span>B</span> Overall Reviewer Assessment</h2><div class="assessment-panel">${val(r.overall)}</div></section>
+ <section class="report-section"><h2><span>C</span> Priority Revisions</h2>${[['Priority 1 — Address Before Proceeding',r.priorities.p1],['Priority 2 — Important Improvements',r.priorities.p2],['Priority 3 — Further Refinement',r.priorities.p3]].map(([k,v],n)=>`<div class="priority priority-${n+1}"><strong>${k}</strong><p>${val(v)}</p></div>`).join('')}</section>
+ <section class="report-section"><h2><span>D</span> Detailed Review</h2>${r.criteria.map((c,n)=>`<article class="review-item"><div class="criterion-head"><div><small>${esc(c.section||'Review criterion')} · ${String(n+1).padStart(2,'0')}</small><h3>${n+1}. ${esc(c.title)}</h3></div>${badge(c.status)}</div><div class="criterion-body">${field('Research expectation',c.expectation)}${field('Current assessment',c.assessment)}${field('Reviewer comment',c.comment)}${field('Required action / suggested revision',c.actions)}</div></article>`).join('')}</section>
+ <section class="report-section last-section"><h2><span>E</span> Review Information</h2><div class="review-footer-grid">${field('Reviewer',i.reviewer)}${field('Reviewer role',i.reviewerRole)}${field('Review date',i.date)}</div>${i.round&&String(i.round).trim()?`<div class="review-meta-extra">${field('Review round',i.round)}</div>`:''}<div class="signature"><span>Reviewer signature / acknowledgement</span><span>${val(r.signature)}</span></div></section>
+ <div class="report-end">${esc(reportTitle)} · ${esc(i.student||'Candidate / Student')}</div></div>`;}

@@ -1,28 +1,36 @@
-# Research Supervision Review System — Version 1.2.1
+# Research Review System — Version 1.3
 
 Static HTML, CSS and JavaScript. No build step, server, account or database is needed.
 
+## Purpose
+
+A supervisor- or examiner-facing academic review form that generates a professional A4 report. It can be used for supervision, proposal review, progress review, internal or external thesis examination, dissertation examination, viva/oral examination and MBA/project-paper review.
+
+The report identity is dynamic: enter any **Report title** (for example, *Research Supervision Review Report*, *PhD Thesis Examination Report*, *External Examiner Report* or *MBA Project Paper Review Report*) and a **Reviewer role**. University/institution and school/faculty are optional metadata only and are no longer hard-coded into the report header.
+
 ## Open and try it
 
-Open `index.html` in a modern desktop browser. A fictional DBA case study review is loaded on first use. Select **Preview report** to inspect the populated report; select **Print / Save as PDF** and choose A4 portrait in the browser print window. For the intended colours, enable **Background graphics** if your browser offers that setting. For best results, turn off browser generated headers and footers.
+Open `index.html` in a modern desktop browser. A fictional DBA case-study review is loaded on first use. Select **Preview report** to inspect the populated report; select **Print / Save as PDF** and choose A4 portrait. Enable **Background graphics** if your browser offers that setting and turn off browser-generated headers/footers for the cleanest PDF.
 
-## Your review workflow
+## Review workflow
 
-1. Choose **New**, then **New review** beside a template. Enter student and review details.
-2. Work through the criteria in the left sidebar. Edit statuses, summaries, detailed comments and requested actions. The blue student-response panel stays separate in the report.
-3. Complete **Priority revisions** and **Overall comments**, then preview and print.
-4. Changes automatically save in this browser; **Save** forces an immediate save. Use **Saved reviews** to reopen, duplicate for another round or delete. Duplication advances the numeric round and clears student-response fields while retaining supervisor assessments for review.
-5. Use **Export JSON** for a backup or transfer to another browser. **Import JSON** creates a separate review. Export regularly: browser storage is tied to the browser and device and can be cleared.
+1. Choose **New**, then select a template. Enter candidate/student, research and review details.
+2. Set the **Report title**, **Reviewer name** and **Reviewer role** to match the purpose of the report. Review round is optional.
+3. Work through the criteria in the left sidebar. Edit status, summary, current assessment, reviewer comment and required action.
+4. Complete **Priority revisions** and **Overall comments**, then preview and print.
+5. Changes save automatically in this browser. Use **Export JSON** for a portable backup and **Import JSON** to restore or transfer a review.
 
-In **Template manager**, create, rename, duplicate and delete reusable templates, and edit their criteria, order, sections and expectations. **Save current criteria as template** copies titles, section names and expectations without copying any judgments. Editing a template affects future reviews only.
+In **Template manager**, create, rename, duplicate and delete reusable templates, and edit their criteria, order, sections and expectations. Editing a template affects future reviews only.
 
 ## Publish on GitHub Pages
 
-Create a GitHub repository, upload the five application files (`index.html`, `style.css`, `data.js`, `report.js`, `app.js`) to its root, and commit. In repository **Settings → Pages**, select **Deploy from a branch**, choose the default branch and `/ (root)`, then save. Open the Pages URL after deployment finishes. Changes saved inside the app stay in that browser; the public repository contains only the application code and fictional demonstration data. Do not commit exported student review JSON or actual research records to a public repository.
+Upload the application files to the root of the existing GitHub Pages repository and commit. This version uses versioned filenames (`style-v1.3.css`, `data-v1.3.js`, `report-v1.3.js`, `app-v1.3.js`) to avoid browser-cache conflicts. Delete older versioned application files if they are no longer referenced by `index.html`.
 
-## Version 1.2.1 boundaries
+The public repository contains only application code and fictional demonstration data. Do not commit exported real-student or examination JSON records to a public repository.
+
+## Version 1.3 boundaries
 
 - Browser storage is local to a device and can be lost; JSON export is the backup route.
-- The browser's print engine controls pagination and optional page numbers. Long text may split across pages; inspect the PDF before sending.
-- The student-response area is in the same local review record; a student who receives only the PDF cannot send structured responses back into this app.
+- Browser print controls pagination and optional page numbers. Inspect the PDF before sending.
 - There is no sign-in, cloud sync, shared editing, cross-round comparison or attachment support.
+- The system is reviewer-facing; it does not collect student/candidate responses.
