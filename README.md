@@ -1,4 +1,4 @@
-# Research Supervision Review System — Version 1.2
+# Research Supervision Review System — Version 1.2.1
 
 Static HTML, CSS and JavaScript. No build step, server, account or database is needed.
 
@@ -20,7 +20,7 @@ In **Template manager**, create, rename, duplicate and delete reusable templates
 
 Create a GitHub repository, upload the five application files (`index.html`, `style.css`, `data.js`, `report.js`, `app.js`) to its root, and commit. In repository **Settings → Pages**, select **Deploy from a branch**, choose the default branch and `/ (root)`, then save. Open the Pages URL after deployment finishes. Changes saved inside the app stay in that browser; the public repository contains only the application code and fictional demonstration data. Do not commit exported student review JSON or actual research records to a public repository.
 
-## Version 1.2 boundaries
+## Version 1.2.1 boundaries
 
 - Browser storage is local to a device and can be lost; JSON export is the backup route.
 - The browser's print engine controls pagination and optional page numbers. Long text may split across pages; inspect the PDF before sending.
